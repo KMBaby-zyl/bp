@@ -1,0 +1,31 @@
+{
+  "name": "better-publish",
+  "version": "1.0.0",
+  "description": "a better npm publish",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc ./index.ts",
+    "bp": "npm run build && node ./bin/bp.js"
+  },
+  "bin": {
+    "bp": "./bin/bp.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KMBaby-zyl/bp"
+  },
+  "keywords": [
+    "npm",
+    "publish"
+  ],
+  "author": "kmbaby-zyl",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.6.8",
+    "branch-name": "^1.0.0",
+    "signale": "^1.4.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3",
+    "yargs-parser": "^13.1.1"
+  }
+}
