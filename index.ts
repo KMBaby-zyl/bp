@@ -1,7 +1,19 @@
 import { spawn } from 'child_process';
-const signale = require('signale');
 import branchName from 'branch-name';
 import { BpConfig } from './type';
+const execa = require('execa');
+const signale = require('signale');
+const chalk = require('chalk');
+const yParser = require('yargs-parser');
+const args = yParser(process.argv.slice(2));
+const cwd = process.cwd();
+const path = require('path');
+const lernaCli = require.resolve('lerna/cli');
+
+// 获取环境配置
+const config = require(path.resolve(cwd, '.bprc.js'));
+
+console.log('config', config);
 
 const defaultConfig: BpConfig = {
   registry: 'https://registry.npmjs.org/'
@@ -77,6 +89,29 @@ async function check(args: any) {
   
   return true;
 }
+
+
+function printErrorAndExit(message) {
+  console.error(chalk.red(message));
+  process.exit(1);
+}
+function logStep(name) {
+  console.log(`${chalk.gray('>> Release:')} ${chalk.magenta.bold(name)}`);
+}
+
+function checkStatus() {
+  // Check git status
+  if (!args.skipGitStatusCheck) {
+    const gitStatus = execa.sync('git', ['status', '--porcelain']).stdout;
+    if (gitStatus.length) {
+      printErrorAndExit(`Your git status is not clean. Aborting.`);
+    }
+  } else {
+    logStep(
+      'git status check is skipped, since --skip-git-status-check is supplied',
+    );
+  }
+}
  
 export async function run(packageJSON: any, args: any, config: BpConfig = defaultConfig) {
   signale.success(`better-publish 开始发版`);
@@ -89,9 +124,19 @@ export async function run(packageJSON: any, args: any, config: BpConfig = defaul
   // publish
   await publish(args);
   signale.success(`新版本${newVersion}发布成功`);
-  const bpConfig = packageJSON.bgConfig;
 }
 
 export async function runLerna(packageJSON: any, args: any, config: BpConfig = defaultConfig) {
   signale.success(`better-publish 开始发版`);
+  checkStatus();
+  
+  // Bump version
+  logStep('bump version with lerna version');
+  await runCmd(lernaCli, [
+    'version',
+    '--exact',
+    '--no-commit-hooks',
+    '--no-git-tag-version',
+    '--no-push',
+  ]);
 }

@@ -14,8 +14,11 @@ $ yarn global add better-publish
 2. 只能在master或者release分支执行,其他分支执行会报错提示
 
 # 配置
-> lerna 是否是lerna多包
-> registry npm源
+lerna 
+> 是否是lerna多包
+
+registry
+> npm源
 
 # 使用
 ```
@@ -33,5 +36,3 @@ pub --tag=beta
 ```
 
 # 参数
-> --nocheck 
-跳过前置检查， 可在任何分支publish

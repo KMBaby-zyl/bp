@@ -1,0 +1,12 @@
+{
+  "name": "better-publish-slave",
+  "version": "1.0.0",
+  "description": "a better npm publish",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "kmbaby-zyl",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

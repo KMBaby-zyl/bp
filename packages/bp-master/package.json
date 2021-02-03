@@ -1,0 +1,13 @@
+{
+  "name": "better-publish-master",
+  "version": "1.0.0",
+  "description": "a better npm publish",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "kmbaby-zyl",
+  "license": "ISC",
+  "dependencies": {
+    "better-publish-slave": "1.0.0"
+  }
+}
