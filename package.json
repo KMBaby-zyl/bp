@@ -1,6 +1,6 @@
 {
   "name": "better-publish",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a better npm publish",
   "main": "index.js",
   "scripts": {
