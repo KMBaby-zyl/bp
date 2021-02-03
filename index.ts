@@ -78,7 +78,7 @@ async function check(args: any) {
   return true;
 }
  
-export async function run(packageJSON: any, args: any) {
+export async function run(packageJSON: any, args: any, config: BpConfig = defaultConfig) {
   signale.success(`better-publish 开始发版`);
   // pub必须在master分支
   // const checkRes = await check(args);
@@ -89,10 +89,9 @@ export async function run(packageJSON: any, args: any) {
   // publish
   await publish(args);
   signale.success(`新版本${newVersion}发布成功`);
-  signale.success(`访问 http://r.npm.sankuai.com/${packageJSON.name} 查看详情`);
   const bpConfig = packageJSON.bgConfig;
 }
 
-export async function runLerna() {
+export async function runLerna(packageJSON: any, args: any, config: BpConfig = defaultConfig) {
   signale.success(`better-publish 开始发版`);
 }
