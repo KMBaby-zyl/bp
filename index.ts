@@ -8,7 +8,6 @@ const yParser = require('yargs-parser');
 const args = yParser(process.argv.slice(2));
 const cwd = process.cwd();
 const path = require('path');
-const lernaCli = require.resolve('lerna/cli');
 
 // 获取环境配置
 const config = require(path.resolve(cwd, '.bprc.js'));
