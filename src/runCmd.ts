@@ -1,3 +1,11 @@
+import signale from 'signale';
+import { spawn } from 'child_process';
+import { BpConfig } from '../type';
+
+const defaultConfig: BpConfig = {
+  registry: 'https://registry.npmjs.org/'
+}
+
 export default function runCmd(cmd: string, args: string[], config: BpConfig = defaultConfig) {
   
   if (cmd === 'npm') {

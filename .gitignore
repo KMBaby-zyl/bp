@@ -2,3 +2,4 @@ node_modules/
 index.js
 type.js
 yarn.lock
+src/*.js
