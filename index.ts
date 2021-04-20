@@ -1,6 +1,7 @@
 import { spawn } from 'child_process';
 import branchName from 'branch-name';
 import { BpConfig } from './type';
+import runCmd from './src/runCmd';
 const execa = require('execa');
 const signale = require('signale');
 const chalk = require('chalk');
@@ -16,29 +17,6 @@ console.log('config', config);
 
 const defaultConfig: BpConfig = {
   registry: 'https://registry.npmjs.org/'
-}
-
-function runCmd(cmd: string, args: string[], config: BpConfig = defaultConfig) {
-  
-  if (cmd === 'npm') {
-    args.unshift(`--registry=${config.registry}`);
-  }
-
-  return new Promise((resolve, reject) => {
-    args = args || [];
-    const runner = spawn(cmd, args, {
-      // keep color
-      stdio: 'inherit',
-    });
-    runner.on('close', (code: any) => {
-      if (code) {
-        signale.error(`Error on execution: ${cmd} ${(args || []).join(' ')}`);
-        reject(code);
-        return;
-      }
-      resolve();
-    });
-  });
 }
 
 async function updateVersion(packageJSON: any, args: any) {
@@ -76,43 +54,6 @@ async function publish(args: any) {
   }
 }
 
-async function check(args: any) {
-  if (args['nocheck']) {
-    signale.success(`跳过前置检查`);
-    return true;
-  }
-  const name = await branchName.get();
-  if (name !== 'master' && !/^release\//.test(name)) {
-    signale.error(`请在master分支或者release执行pub命令`);
-    return false;
-  }
-  
-  return true;
-}
-
-
-function printErrorAndExit(message) {
-  console.error(chalk.red(message));
-  process.exit(1);
-}
-function logStep(name) {
-  console.log(`${chalk.gray('>> Release:')} ${chalk.magenta.bold(name)}`);
-}
-
-function checkStatus() {
-  // Check git status
-  if (!args.skipGitStatusCheck) {
-    const gitStatus = execa.sync('git', ['status', '--porcelain']).stdout;
-    if (gitStatus.length) {
-      printErrorAndExit(`Your git status is not clean. Aborting.`);
-    }
-  } else {
-    logStep(
-      'git status check is skipped, since --skip-git-status-check is supplied',
-    );
-  }
-}
- 
 export async function run(packageJSON: any, args: any, config: BpConfig = defaultConfig) {
   signale.success(`better-publish 开始发版`);
   // pub必须在master分支
