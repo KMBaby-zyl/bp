@@ -76,6 +76,7 @@ async function publish(args: any) {
     await runCmd('npm', ['publish']);
   }
 }
+
 async function check(args: any) {
   if (args['nocheck']) {
     signale.success(`跳过前置检查`);
@@ -124,19 +125,4 @@ export async function run(packageJSON: any, args: any, config: BpConfig = defaul
   // publish
   await publish(args);
   signale.success(`新版本${newVersion}发布成功`);
-}
-
-export async function runLerna(packageJSON: any, args: any, config: BpConfig = defaultConfig) {
-  signale.success(`better-publish 开始发版`);
-  checkStatus();
-  
-  // Bump version
-  logStep('bump version with lerna version');
-  await runCmd(lernaCli, [
-    'version',
-    '--exact',
-    '--no-commit-hooks',
-    '--no-git-tag-version',
-    '--no-push',
-  ]);
 }

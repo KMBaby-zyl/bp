@@ -1,5 +1,5 @@
-> A better `npm publish`
-> support single package or multiple packages (lerna).
+> a better `npm publish`
+> support single package, multiple packages please use lerna
 
 ### Install
 ```
@@ -11,12 +11,8 @@ $ yarn global add better-publish
 
 ### 约定
 1. 执行命令之前代码必须已经commit
-2. 只能在master或者release分支执行,其他分支执行会报错提示
 
 # 配置
-lerna 
-> 是否是lerna多包
-
 registry
 > npm源
 
