@@ -1,0 +1,24 @@
+{
+  "name": "better-publish-test",
+  "version": "1.0.0",
+  "description": "a better npm publish test",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KMBaby-zyl/bp"
+  },
+  "scripts": {
+    "pub": "bp pub",
+    "pub:beta": "bp pub:beta"
+  },
+  "registry": "s",
+  "keywords": [
+    "npm",
+    "publish"
+  ],
+  "author": "kmbaby-zyl",
+  "license": "ISC",
+  "dependencies": {
+    "better-publish": "latest"
+  }
+}
