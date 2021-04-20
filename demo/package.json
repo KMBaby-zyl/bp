@@ -1,6 +1,6 @@
 {
   "name": "better-publish-test",
-  "version": "1.0.0",
+  "version": "1.0.2-test.2",
   "description": "a better npm publish test",
   "main": "index.js",
   "repository": {
@@ -9,7 +9,8 @@
   },
   "scripts": {
     "pub": "bp pub",
-    "pub:beta": "bp pub:beta"
+    "pub:beta": "bp pub --tag=beta",
+    "pub:test": "bp pub --tag=test"
   },
   "registry": "s",
   "keywords": [
