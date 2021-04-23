@@ -9,6 +9,12 @@ $ npm install --global better-publish
 $ yarn global add better-publish
 ```
 
+### 功能
+1. 自动增加版本号
+2. 自动打tag
+3. 支持tag
+4. 支持命令行式选择版本号 TODO
+
 ### 约定
 1. 执行命令之前代码必须已经commit
 

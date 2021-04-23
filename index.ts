@@ -27,7 +27,7 @@ async function updateVersion(packageJSON: any, args: any) {
 
   if (args['tag']) {
     let newBetaVersion = 1;
-    if (beta) {
+    if (beta === args['tag']) {
       const betaVersion = beta.split('.')[1];
       newBetaVersion = ~~betaVersion + 1;
     }
@@ -37,6 +37,7 @@ async function updateVersion(packageJSON: any, args: any) {
     arr[2] = ~~arr[2] + 1;
     newVersion = arr.join('.');
   }
+  return newVersion;
   // 自动会做代码未提交判断
   await runCmd('npm', ['version', newVersion])
   await runCmd('git', ['push']);
@@ -63,6 +64,6 @@ export async function run(packageJSON: any, args: any, config: BpConfig = defaul
   const newVersion = await updateVersion(packageJSON, args);
   signale.success(`版本号升级: ${newVersion}`);
   // publish
-  await publish(args);
+  // await publish(args);
   signale.success(`新版本${newVersion}发布成功`);
 }
